@@ -1,0 +1,73 @@
+{
+  "url": "http://localhost:3355/",
+  "actionSeries": [
+    {
+      "dispatchedAction": {
+        "type": "automator/recording-start",
+        "payload": {
+          "state": {
+            "counter": {
+              "value": 10
+            }
+          }
+        }
+      },
+      "timestamp": 222067.37500000003
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 224488.435
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 224651.58000000002
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 224795.18000000002
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 224949.30500000002
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 225103.96500000003
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 225371.30000000002
+    },
+    {
+      "dispatchedAction": {
+        "type": "automator/recording-end",
+        "payload": {
+          "state": {
+            "counter": {
+              "value": 16
+            }
+          }
+        }
+      },
+      "timestamp": 227233.075
+    }
+  ]
+}

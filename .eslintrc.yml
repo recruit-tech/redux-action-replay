@@ -1,0 +1,15 @@
+parser: 'babel-eslint'
+plugins:
+  - react
+  - standard
+extends:
+  - standard
+  - prettier
+rules:
+  prefer-const: 2
+  prefer-arrow-callback: 2
+  react/jsx-uses-vars: 2
+  no-unused-vars:
+    - 2
+    -
+      varsIgnorePattern: ^_|React

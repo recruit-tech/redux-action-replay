@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+var path = require('path')
+var argv = require('minimist')(process.argv.slice(2));
+var run = require('../lib/runner').default
+var target = path.join(process.cwd(), argv._[0])
+var data = require(target)
+run(data, argv)

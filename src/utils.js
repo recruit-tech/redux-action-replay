@@ -1,7 +1,7 @@
 /* @flow */
+import { createStore as createStoreRedux, applyMiddleware } from 'redux'
 import { REPLACEABLE } from './constants'
-import { applyMiddleware, createStore } from 'redux'
-import { replayer } from './middleware'
+import { recorder } from './middleware'
 
 export function isPuppeteerEnv() {
   return (
@@ -10,13 +10,22 @@ export function isPuppeteerEnv() {
   )
 }
 
-export const replaceable = (reducer: Function) => (
+export const withReplacer = (reducer: Function) => (
   state: any = reducer(undefined, { type: 'noop' }),
   action: any = {}
 ) => {
   return action.type === REPLACEABLE ? action.payload : reducer(state, action)
 }
 
-export function createAutomateStore(reducer: Function) {
-  return createStore(replaceable(reducer), undefined, applyMiddleware(replayer))
+export const createStore = (
+  reducer: Function,
+  initialState: any,
+  middleware: Function,
+  opts?: any
+) => {
+  createStoreRedux(
+    withReplacer(reducer),
+    initialState,
+    applyMiddleware(recorder(opts), middleware)
+  )
 }

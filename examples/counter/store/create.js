@@ -1,25 +1,16 @@
 /* @flow */
 import { createStore, applyMiddleware } from 'redux'
 import reduxPromise from 'redux-promise'
-import React from 'react'
-import ReactDOM from 'react-dom'
 import reducer from '../reducers'
-import {
-  isPuppeteerEnv,
-  createAutomateStore,
-  recorder
-} from 'redux-action-replay'
+import { recorder, withReplacer, isPuppeteerEnv } from 'redux-action-replay'
+
+console.log('isp', isPuppeteerEnv())
 
 export default () => {
-  if (isPuppeteerEnv()) {
-    return createAutomateStore(reducer)
-  }
-
-  console.log('isPuppeteerEnv', isPuppeteerEnv())
-
   return createStore(
+    // withReplacer(reducer),
     reducer,
     undefined,
-    applyMiddleware(reduxPromise, recorder({ ui: true }))
+    applyMiddleware(recorder({ ui: true }), reduxPromise)
   )
 }

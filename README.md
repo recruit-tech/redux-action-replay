@@ -30,25 +30,43 @@ $ par myscenario.json
 Add this code to record your actions.
 
 ```js
-/* @flow */
 // src/store/create.js
-import { createStore, applyMiddleware } from 'redux'
+import { applyMiddleware } from 'redux'
 import reduxPromise from 'redux-promise'
+import { recorder, withReplacer, createStore } from 'redux-action-replay'
 import reducer from '../reducers'
-import { isPuppeteerEnv, createAutomateStore, recorder } from 'redux-action-replay'
 
 export default () => {
-  if (isPuppeteerEnv()) {
-    return createAutomateStore(reducer)
-  }
-
   return createStore(
     reducer,
     undefined,
-    applyMiddleware(reduxPromise, recorder({ ui: true }))
+    applyMiddleware(reduxPromise),
+    { ui: true } // recorder option
   )
 }
 ```
+
+or
+
+```js
+// src/store/create.js
+import { createStore, applyMiddleware } from 'redux'
+import reduxPromise from 'redux-promise'
+import { recorder, withReplacer } from 'redux-action-replay'
+import reducer from '../reducers'
+export default () => {
+  return createStore(
+    // Wrap your reducer
+    // to restore recorded state in replay mode
+    withReplacer(reducer),
+    undefined,
+    // Set recorder as first middleware
+    // to prevent next middleware in replay mode
+    applyMiddleware(recorder({ ui: true }), reduxPromise)
+  )
+}
+```
+
 
 Record your actions in your app.
 

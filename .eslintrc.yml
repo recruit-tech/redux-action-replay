@@ -13,3 +13,4 @@ rules:
     - 2
     -
       varsIgnorePattern: ^_|React
+      argsIgnorePattern: ^_

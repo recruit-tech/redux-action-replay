@@ -1,22 +1,38 @@
 /* @flow */
 import isPlainObject from 'lodash.isplainobject'
 import renderUI from './renderUI'
-import { RECORDING_START, RECORDING_END, BACKDOOR_FOR_STORE } from './constants'
+import {
+  RECORDING_START,
+  RECORDING_END,
+  BACKDOOR_FOR_STORE,
+  REDUX_GENEREATED,
+  ACTION_REPLAY_GENERATED
+} from './constants'
+import { isPuppeteerEnv } from './utils'
 
 declare var performance
 declare var location
 
 export const replayer = (store: any) => {
   global[BACKDOOR_FOR_STORE] = store
-  return (next: Function) => (action: any) => {
-    return next(action)
+  return (_next: Function) => (action: any) => {
+    // We do not need to call _next().
+    if (!action.__alreadyForDispatched) {
+      store.dispatch({ ...action, __alreadyForDispatched: true })
+    }
   }
 }
 
 export const recorder = (opts: { ui: boolean } = { ui: true }) => {
+  if (isPuppeteerEnv()) {
+    // Behave as replayer
+    return replayer
+  }
+
   let recording = false
   let actionSeries: any = null
 
+  // Behave as recorder
   return (store: any) => {
     global[BACKDOOR_FOR_STORE] = store
     if (opts.ui) {
@@ -34,6 +50,7 @@ export const recorder = (opts: { ui: boolean } = { ui: true }) => {
         renderUI({ recording, result: undefined, dispatch: store.dispatch })
         actionSeries = [
           {
+            type: ACTION_REPLAY_GENERATED,
             dispatchedAction: {
               type: RECORDING_START,
               payload: {
@@ -47,6 +64,7 @@ export const recorder = (opts: { ui: boolean } = { ui: true }) => {
         console.info('recording:end')
         recording = false
         actionSeries.push({
+          type: ACTION_REPLAY_GENERATED,
           dispatchedAction: {
             type: RECORDING_END,
             payload: {
@@ -63,15 +81,16 @@ export const recorder = (opts: { ui: boolean } = { ui: true }) => {
         if (opts.ui) {
           renderUI({ recording, result: seriarized, dispatch: store.dispatch })
         }
-        console.log(seriarized)
+        console.info('--- recorded ---')
+        console.info(seriarized)
       } else if (recording && isPlainObject(action)) {
         console.info('recording:record', action)
         actionSeries.push({
+          type: REDUX_GENEREATED,
           dispatchedAction: action,
           timestamp: performance.now()
         })
       }
-      // console.log('before: %O', store.getState())
       next(action)
     }
   }

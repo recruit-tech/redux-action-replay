@@ -1,7 +1,7 @@
 /* @flow */
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import * as counterActions from '../reducers/counter'
 
 const mapStateToProps = state => state.counter
@@ -22,6 +22,7 @@ export default connect(
       <p>value: {value}</p>
       <div>
         <button onClick={() => add(1)}>Add 1</button>
+        <button onClick={() => add(5)}>Add 5</button>
       </div>
     </div>
   )

@@ -1,10 +1,10 @@
 /* @flow */
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+import App from './components/App'
 
+// mount
 const el = document.createElement('main')
-el.id = '--root'
-document.body.prepend(el)
+document.body && document.body.prepend(el)
 
-const App = require('./components/App').default
 ReactDOM.render(<App />, el)

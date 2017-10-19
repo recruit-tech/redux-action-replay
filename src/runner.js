@@ -40,16 +40,23 @@ function report(results) {
   }
 }
 
-function screenshot(page, index) {
-  return page.screenshot({
-    path: path.join(process.cwd(), `./e2e/screenshots/${index}.png`)
-  })
+function createScreenshotContext(page, opts) {
+  const outdir = path.join(opts.out || 'e2e', 'screenshots')
+  let cnt = 0
+  return async () => {
+    if (opts.screenshot) {
+      const outpath = path.join(outdir, `${cnt++}.png`)
+      await page.screenshot({
+        path: outpath
+      })
+    }
+  }
 }
 
 type MODE = 'wait' | 'no-wait' | 'realtime'
 export default async function run(
   data: any,
-  opts: { screenshot: boolean, mode?: MODE, wait: ?number }
+  opts: { screenshot: boolean, mode?: MODE, wait: ?number, out?: string }
 ) {
   const actions = data.actionSeries.map(d => d.dispatchedAction)
   const results = []
@@ -60,32 +67,29 @@ export default async function run(
   await page._client.send('Performance.enable')
   page.on('console', msg => console.log('PAGE LOG:', ...msg.args))
 
+  const shot = createScreenshotContext(page, opts)
+
   // Dispatch first action as REPLACEABLE
   const first = actions.shift()
   if (first.type === RECORDING_START) {
-    dispatchInPage(page, {
+    await dispatchInPage(page, {
       type: REPLACEABLE,
       payload: first.payload.state
     })
-    if (opts.screenshot) {
-      await screenshot(page, 0)
-    }
+    await shot()
   }
 
   const mode = opts.mode || 'no-wait'
   const waitTime = opts.wait || 100
 
   for (const action of actions) {
-    dispatchInPage(page, action)
-    const index = actions.indexOf(action)
-    if (opts.screenshot) {
-      await screenshot(page, index)
-    }
-
+    await dispatchInPage(page, action)
     results.push({
       dispatchedAction: action,
       metrics: await getPerformanceMetrics(page)
     })
+    console.log('dispatched', action)
+    await shot()
     if (mode === 'wait') {
       wait(waitTime)
     }

@@ -1,0 +1,115 @@
+{
+  "url": "http://localhost:3100/",
+  "actionSeries": [
+    {
+      "dispatchedAction": {
+        "type": "redux-action-replay/recording-start",
+        "payload": {
+          "state": {
+            "counter": {
+              "value": 13
+            }
+          }
+        }
+      },
+      "timestamp": 12482.660000000002
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 14244.355000000001
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 14417.135000000002
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 14585.580000000002
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 14746.200000000003
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 14922.93
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 5
+      },
+      "timestamp": 15701.725000000002
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 5
+      },
+      "timestamp": 15886.725000000002
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 5
+      },
+      "timestamp": 16103.085000000001
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 5
+      },
+      "timestamp": 16271.830000000002
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 16744.980000000003
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 16897.965000000004
+    },
+    {
+      "dispatchedAction": {
+        "type": "counter/add",
+        "payload": 1
+      },
+      "timestamp": 17179.055
+    },
+    {
+      "dispatchedAction": {
+        "type": "redux-action-replay/recording-end",
+        "payload": {
+          "state": {
+            "counter": {
+              "value": 41
+            }
+          }
+        }
+      },
+      "timestamp": 18816.145000000004
+    }
+  ]
+}

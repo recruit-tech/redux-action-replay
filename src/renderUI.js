@@ -30,6 +30,7 @@ export default function renderUI(props: {
     el.style.backgroundColor = 'rgba(1, 1, 1, 0.5)'
     el.style.borderRadius = '3px'
     el.style.padding = '4px'
+    el.style.zIndex = 1000000000
     document.body && document.body.prepend(el)
   }
 

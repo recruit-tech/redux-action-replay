@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "watch": "yarn build -w",
-    "build": "babel src -d lib"
+    "build": "babel src -d lib",
     "prepublish": "babel src -d lib"
   },
   "dependencies": {

@@ -41,8 +41,9 @@ function report(results) {
 }
 
 function screenshot(page, index) {
+  const fname = index.toString().padStart(4, '0')
   return page.screenshot({
-    path: path.join(process.cwd(), `./e2e/screenshots/${index}.png`)
+    path: path.join(process.cwd(), `./e2e/screenshots/${fname}.png`)
   })
 }
 

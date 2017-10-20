@@ -1,7 +1,7 @@
 {
   "name": "redux-action-replay",
   "main": "lib/index",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "bin": {
     "par": "bin/par"
   },
@@ -47,5 +47,5 @@
   },
   "author": "mizchi <miz404@gmail.com>",
   "license": "MIT",
-  "files": ["lib", "runner.js"]
+  "files": ["lib", "runner.js", "bin"]
 }

@@ -2,6 +2,9 @@
   "name": "redux-action-replay",
   "main": "lib/index",
   "version": "0.0.0",
+  "bin": {
+    "par": "bin/par"
+  },
   "scripts": {
     "watch": "yarn build -w",
     "build": "babel src -d lib",
@@ -13,6 +16,7 @@
     "puppeteer": "^0.11.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.2",
@@ -42,5 +46,6 @@
     "webpack-dev-server": "^2.9.1"
   },
   "author": "mizchi <miz404@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "files": ["lib", "runner.js"]
 }

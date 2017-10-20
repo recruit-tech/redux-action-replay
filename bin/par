@@ -1,6 +1,7 @@
 #!/usr/bin/env node
+require('babel-polyfill')
 var path = require('path')
-var argv = require('minimist')(process.argv.slice(2));
+var argv = require('minimist')(process.argv.slice(2))
 var run = require('../lib/runner').default
 var target = path.join(process.cwd(), argv._[0])
 var data = require(target)
